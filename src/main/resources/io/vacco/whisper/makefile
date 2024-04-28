@@ -1,10 +1,9 @@
 compile:
-	$(CC) \
-		-I/usr/lib/gcc/x86_64-linux-gnu/10/include \
-		-I/home/jjzazuet/Applications/zulu11.52.13-ca-jdk11.0.13-linux_x64/include \
-		-I/home/jjzazuet/Applications/zulu11.52.13-ca-jdk11.0.13-linux_x64/include/linux \
-		-Wall -c -o rwkv_context.o rwkv_context.c
-	$(CC) -L. -lrwkv -shared -o librwkv_context.so rwkv_context.o
+	cc \
+		-I/home/jjzazuet/Applications/zulu17.42.21-ca-crac-jdk17.0.7-linux_x64/include \
+		-I/home/jjzazuet/Applications/zulu17.42.21-ca-crac-jdk17.0.7-linux_x64/include/linux \
+		-Wall -fPIC -c -o whisperjni.o whisperjni.c
+	cc -std=c11 -fPIC -lstdc++ -shared -o libwhisperjni.so ggml.o ggml-alloc.o ggml-backend.o ggml-quants.o whisper.o whisperjni.o
 
 clean:
-	rm -rfv rwkv_context.o librwkv_context.so
+	rm -rfv whisperjni.o libwhisperjni.so
