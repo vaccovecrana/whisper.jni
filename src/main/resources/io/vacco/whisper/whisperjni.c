@@ -11,9 +11,11 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
     return JNI_VERSION_1_6;
 }
 
-JNIEXPORT jlong JNICALL Java_io_vacco_whisper_Wp_initWhisper(JNIEnv *env, jclass clazz,
-                                                        jstring jModelPath, jboolean jUseGpu, jint jGpuDevice,
-                                                        jboolean jDtwTokenTimestamps, jstring jDtwAheadsPreset) {
+JNIEXPORT jlong JNICALL Java_io_vacco_whisper_Wp_initWhisper(
+    JNIEnv *env, jclass clazz,
+    jstring jModelPath, jboolean jUseGpu, jint jGpuDevice,
+    jboolean jDtwTokenTimestamps, jstring jDtwAheadsPreset) {
+
     const char *modelPath = (*env)->GetStringUTFChars(env, jModelPath, NULL);
     const char *dtwAheadsPresetStr = (*env)->GetStringUTFChars(env, jDtwAheadsPreset, NULL);
     enum whisper_alignment_heads_preset dtwAheadsPreset;
@@ -69,7 +71,8 @@ JNIEXPORT void JNICALL Java_io_vacco_whisper_Wp_freeWhisper(JNIEnv *env, jclass 
     whisper_free(context);
 }
 
-JNIEXPORT jlong JNICALL Java_io_vacco_whisper_Wp_createWhisperFullParams(JNIEnv *env, jclass clazz,
+JNIEXPORT jlong JNICALL Java_io_vacco_whisper_Wp_createWhisperFullParams(
+    JNIEnv *env, jclass clazz,
     jstring jStrategy,
     jint jNThreads, jint jNMaxTextCtx, jint jOffsetMs, jint jDurationMs,
     jboolean jTranslate, jboolean jNoContext,
@@ -157,6 +160,8 @@ JNIEXPORT jlong JNICALL Java_io_vacco_whisper_Wp_createWhisperFullParams(JNIEnv 
 
     return (jlong) params;
 }
+
+// TODO map whisper_free_params
 
 static jobject gCallbackObject = NULL;
 static jmethodID gCallbackMethodID = NULL;
