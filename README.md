@@ -1,4 +1,4 @@
-# rwkv.jni
+# whisper.jni
 
 ## Overview
 
